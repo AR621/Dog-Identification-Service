@@ -7,8 +7,7 @@ urlpatterns = [
     path('about/', views.aboutpage, name='about'),
     path('', views.homepage, name='home'),
     # path('upload/', views.upload_photo, name='upload_photo'),
-    path('dog/', views.upload_image, name='upload_photo'),
-    path('results/', views.classify_photo, name='classifier'),
+    path('dog/', views.classify_dogs, name='upload_photo'),
 ]
 
 if settings.DEBUG:

@@ -20,9 +20,10 @@ def homepage(request):
 def aboutpage(request):
     return render(request, 'aboutpage.html', context={})
 
-def upload_image(request):
+def classify_dogs(request):
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
+        print('fiut')
         if form.is_valid():
             # Save the uploaded image
             photo_instance = form.save()
@@ -47,24 +48,10 @@ def upload_image(request):
                 # If the image is not already in JPEG format, convert it
                 image = image.convert('RGB')
 
-            results = model.classify_photo(image)
+            results = model.classify_dog(image)
 
             # Pass the saved photo instance and results to the template context to be rendered
             return render(request, 'classifier.html', {'form': form, 'img_obj': photo_instance, 'results': results})
     else:
         form = PhotoForm()  # Your form class for uploading image
     return render(request, 'classifier.html', {'form': form})
-
-
-def classify_photo(request):
-    results = [(breed, round(score*100, 2)) for breed, score in results if score > 0.01]
-
-    # filter results to be user firendly
-    input_image = request.FILES["inputImage"].read()
-
-    encoded = base64.b64encode(input_image)
-    mime = "image/jpg"
-    mime = mime + ";" if mime else ";"
-    input_image = "data:%sbase64,%s" % (mime, encoded)
-
-    return render(request, 'results.html', {'form': form, 'results': results})

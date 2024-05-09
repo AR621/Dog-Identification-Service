@@ -24,7 +24,7 @@ class Model(torch.nn.Module):
             raise Exception(e)
 
 
-    def classify_photo(self, input_image):
+    def classify_dog(self, input_image):
         """
         Classifies the input image and returns the predicted class name.        
         """
