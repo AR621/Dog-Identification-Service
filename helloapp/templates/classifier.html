@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Photo</title>
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Upload Photo</title>
+    </head>
+    <body>
+        <h1>Upload Photo</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+            <div style="width: 80%; margin-left: 10%; margin-right: 10%; padding: 10px; text-align: center">
+                {% if img_obj %}
+                    <h3>Successfully uploaded:</h3>
+                    <img src="{{ img_obj.image.url }}" alt="Uploaded Image";>
+                {% endif %}
+            </div>
+        <p>FIUT</p>
+        {% if results %}
+        <div class="results-container">
+            <h3>Image Processing Results:</h3>
+                <ul class="animated-list">
+                    {% for label, confidence in results %}
+                        <li>{{ label }}: {{ confidence }}%</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    <script src="{% static 'script.js' %}"></script>
+    </body>
+</html>

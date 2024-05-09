@@ -99,6 +99,33 @@ code {
 	font-weight: 600;
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.results-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.animated-list li {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .cta a:hover {
     background-color: rgb(66, 133, 244, 0.9);
 }

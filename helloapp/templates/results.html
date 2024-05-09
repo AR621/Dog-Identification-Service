@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Photo</title>
+</head>
+<body>
+    <h1>Upload Photo</h1>
+    <input src = '{{ input_image }}' name = 'inputImage' type="text">
+    <p>FIUT</p>
+    <ul>
+        {% for label, confidence in results %}
+            <li>{{ label }}: {{ confidence }} %</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
