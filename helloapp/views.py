@@ -41,7 +41,7 @@ def classify_dogs(request):
             model = Model(model_path, class_names_path)
 
             # input_image = Image.open('/home/killshot/Pictures/ziumba/download20240102175124.png')
-            image = Image.open(photo_instance.image.path)
+            image = Image.open(os.path.join(current_dir, photo_instance.image.path))
 
             # Convert the image to JPG format
             if image.format != 'JPEG':
