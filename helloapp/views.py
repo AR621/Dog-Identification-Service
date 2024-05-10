@@ -20,9 +20,10 @@ def homepage(request):
 def aboutpage(request):
     return render(request, 'aboutpage.html', context={})
 
-def upload_image(request):
+def classify_dogs(request):
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
+        print('fiut')
         if form.is_valid():
             # Save the uploaded image
             photo_instance = form.save()
@@ -40,31 +41,17 @@ def upload_image(request):
             model = Model(model_path, class_names_path)
 
             # input_image = Image.open('/home/killshot/Pictures/ziumba/download20240102175124.png')
-            image = Image.open(photo_instance.image.path)
+            image = Image.open(os.path.join(current_dir, photo_instance.image.path))
 
             # Convert the image to JPG format
             if image.format != 'JPEG':
                 # If the image is not already in JPEG format, convert it
                 image = image.convert('RGB')
 
-            results = model.classify_photo(image)
+            results = model.classify_dog(image)
 
             # Pass the saved photo instance and results to the template context to be rendered
             return render(request, 'classifier.html', {'form': form, 'img_obj': photo_instance, 'results': results})
     else:
         form = PhotoForm()  # Your form class for uploading image
     return render(request, 'classifier.html', {'form': form})
-
-
-def classify_photo(request):
-    results = [(breed, round(score*100, 2)) for breed, score in results if score > 0.01]
-
-    # filter results to be user firendly
-    input_image = request.FILES["inputImage"].read()
-
-    encoded = base64.b64encode(input_image)
-    mime = "image/jpg"
-    mime = mime + ";" if mime else ";"
-    input_image = "data:%sbase64,%s" % (mime, encoded)
-
-    return render(request, 'results.html', {'form': form, 'results': results})
