@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .forms import PhotoForm
 import base64
 from PIL import Image
-from helloapp.model import Model
+from helloapp.dog_classifier import DogClassifier
 
 def homepage(request):
     service = os.environ.get('K_SERVICE', 'Unknown service')
@@ -35,10 +35,10 @@ def classify_dogs(request):
             import os
 
             current_dir = os.path.dirname(os.path.abspath(__file__))
-            model_path = os.path.join(current_dir, 'model', 'model.pth')
-            class_names_path = os.path.join(current_dir, 'model', 'class_names.txt')
+            model_path = os.path.join(current_dir, 'models', 'model.pth')
+            class_names_path = os.path.join(current_dir, 'models', 'class_names.txt')
 
-            model = Model(model_path, class_names_path)
+            model = DogClassifier(model_path, class_names_path)
 
             # input_image = Image.open('/home/killshot/Pictures/ziumba/download20240102175124.png')
             image = Image.open(os.path.join(current_dir, photo_instance.image.path))
@@ -51,7 +51,7 @@ def classify_dogs(request):
             results = model.classify_dog(image)
 
             # Pass the saved photo instance and results to the template context to be rendered
-            return render(request, 'classifier.html', {'form': form, 'img_obj': photo_instance, 'results': results})
+            return render(request, 'dog_classifier.html', {'form': form, 'img_obj': photo_instance, 'results': results})
     else:
         form = PhotoForm()  # Your form class for uploading image
-    return render(request, 'classifier.html', {'form': form})
+    return render(request, 'dog_classifier.html', {'form': form})

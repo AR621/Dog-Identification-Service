@@ -115,6 +115,14 @@ img {
     animation: fadeIn 0.5s ease forwards;
 }
 
+.uploaded_photo {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding: 10px;
+	text-align: center"
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
