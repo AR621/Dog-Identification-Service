@@ -86,4 +86,7 @@ DATABASES = {
     }
 }
 
+
+STATIC_ROOT = BASE_DIR + "dogidentificationapp/static/"
+print(STATIC_ROOT)
 STATIC_URL = '/static/'
