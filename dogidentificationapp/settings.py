@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.staticfiles',
-    'helloapp',
+    'dogidentificationapp',
 ]
 
 MIDDLEWARE = [
@@ -42,12 +42,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'helloproject.urls'
+ROOT_URLCONF = 'dogidentificationapp.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['helloapp/templates'],
+        'DIRS': ['dogidentificationapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,7 +58,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'helloproject.wsgi.application'
+WSGI_APPLICATION = 'dogidentificationapp.wsgi.application'
 
 
 # Internationalization

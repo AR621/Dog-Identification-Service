@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .forms import PhotoForm
 import base64
 from PIL import Image
-from helloapp.dog_classifier import DogClassifier
+from dogidentificationapp.dog_classifier import DogClassifier
 
 def homepage(request):
     service = os.environ.get('K_SERVICE', 'Unknown service')
