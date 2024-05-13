@@ -13,14 +13,13 @@
                     {% if img_obj %}
                         <img class="uploaded-image" src="{{ img_obj.image.url }}" alt="Uploaded Image";>
                     {% else %}
-                        <h3 class="text-horizontal-center text-vertical-center">Drag an image here or use Browse + submit buttons</h3>
+                        <h3 class="text-horizontal-center text-vertical-center">Drag an image here or use Browse to submit a photo</h3>
                     {% endif %}
                 </div>
                 <div class="form-over-image">
                     <form  method="post" enctype="multipart/form-data" id="uploadForm">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <input class="submit-btn-form"type="submit" value="Submit">
                     </form>
                 </div>
             </div>
@@ -35,6 +34,13 @@
                 </div>
             {% endif %}
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('#id_image_input').addEventListener('change', function() {
+                    document.getElementById('uploadForm').submit();
+                });
+            });
+            </script>
     <script src="{% static 'image_upload.js' %}"></script>
     </body>
 </html>

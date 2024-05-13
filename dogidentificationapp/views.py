@@ -23,16 +23,9 @@ def aboutpage(request):
 def classify_dogs(request):
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
-        print('fiut')
         if form.is_valid():
             # Save the uploaded image
             photo_instance = form.save()
-            # results = [
-            #     ('borzoi', 0.8861562013626099), ('Scottish_deerhound', 0.03872758522629738), 
-            #     ('Irish_wolfhound', 0.0251463670283556), ('Saluki', 0.014366214163601398), ('collie', 0.0056389993987977505)
-            #     ]
-
-            import os
 
             current_dir = os.path.dirname(os.path.abspath(__file__))
             model_path = os.path.join(current_dir, 'models', 'model.pth')

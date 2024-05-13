@@ -48,6 +48,5 @@ class DogClassifier(torch.nn.Module):
 
         # Convert class indices to class labels using the class mapping list loaded from class_names.txt
         sorted_results_with_labels = [(self.class_names[idx], prob) for prob, idx in sorted_results]
-        print(sorted_results_with_labels)
 
         return sorted_results_with_labels

@@ -140,14 +140,6 @@ code {
 	border: rgba(72, 103, 255, 0.8) 3px dashed;
 }
 
-.submit-btn-form {
-	position: absolute;
-	top: 0%;
-	right: 0%;
-	margin: 10px;
-	margin-right: 30px;
-}
-
 .form-over-image {
     position: absolute;
 	width: 100%;
