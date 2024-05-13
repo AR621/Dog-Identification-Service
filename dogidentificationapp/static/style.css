@@ -110,7 +110,7 @@ code {
 .results-container {
 	z-index: 3;
 	background-color: rgba(10, 10, 10, 0.6);
-	display: flex;
+	/* display: flex; */
     flex-direction: column;
 	position: absolute;
 	top: 20%;
@@ -120,13 +120,26 @@ code {
 	max-height: 80%;
 	padding: 1.5%;
 	overflow: hidden;
-	transition: right 0.5s ease;
+	transition: right 0.3s ease;
 }
 
-.result-list li {
+.result-list {
+	margin-left: 0;
+	padding-left: 0;
+	float: left;
 	list-style-type: none;
-	line-height: 1.5em;
+	line-height: 2em;
     animation: fadeIn 1.5s ease 0s forwards;
+}
+
+.result-list-labels {
+	width: 85%;
+	float: left;
+}
+
+.result-list-confidences {
+	width: 15%;
+	float: right;
 }
 
 .result-list-item {
@@ -135,10 +148,19 @@ code {
 	justify-content: space-between;
 }
 
+.results-content {
+	padding: 0;
+	float: right;
+	width: 85%;
+}
+
 .results-toggle {
+	width: 15%;
+	height: 100%;
+	float: left;
     position: relative;
-    top: 10px;
-    right: 10px;
+    top: 10%;
+    /* right: 10px; */
     font-size: 24px;
     cursor: pointer;
     z-index: 4;

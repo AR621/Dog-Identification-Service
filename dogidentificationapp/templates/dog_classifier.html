@@ -24,14 +24,18 @@
                 </div>
             </div>
             {% if results %}
-            <!-- <button id="toggle-button" onclick="toggleResults()">Toggle Results</button> -->
             <div class="results-container" id="results-container">
                 <div class="results-toggle" onclick="toggleResults()">&#x25BA;</div>
                 <div class="results-content">
-                    <h3 class="text-center">Image Processing Results</h3>
-                    <ul class="result-list">
-                        {% for label, confidence in results %}
-                            <li class="result-list-item">{{ label }}: {{ confidence }}%</li>
+                    <h3 class="text-center">Dog Classification Results</h3>
+                    <ul class="result-list result-list-labels">
+                        {% for label, _ in results %}
+                            <li class="result-list-item">{{ label }}:</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="result-list result-list-confidences">
+                        {% for _, confidence in results %}
+                            <li class="result-list-item">{{ confidence }}%</li>
                         {% endfor %}
                     </ul>
                 </div>

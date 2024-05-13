@@ -42,8 +42,8 @@ def classify_dogs(request):
                 image = image.convert('RGB')
 
             results = model.classify_dog(image)
-            # change results into percentage and round 2 2 decimal places
-            results = [(label, round(confidence * 100, 2)) for label, confidence in results]
+            # change results into percentage and round 2 2 decimal places and change format of title to not include _
+            results = [(label.replace('_', ' ').title(), round(confidence * 100, 2)) for label, confidence in results]
 
             # Pass the saved photo instance and results to the template context to be rendered
             return render(request, 'dog_classifier.html', {'form': form, 'img_obj': photo_instance, 'results': results})
