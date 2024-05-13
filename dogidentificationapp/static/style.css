@@ -101,32 +101,48 @@ code {
 	font-weight: 600;
 }
 
+.text-center {
+	text-align: center;
+}
+
 /* results container styles */
 
 .results-container {
 	z-index: 3;
-	background-color: rgba(11, 10, 10, 0.6);
-    /* text-align: center; */
+	background-color: rgba(10, 10, 10, 0.6);
 	display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
 	position: absolute;
-	top: 15%;
+	top: 20%;
 	right: 0%;
-	padding: 2.5%;
+	width: 21em;
+	max-width: 35%;
+	max-height: 80%;
+	padding: 1.5%;
+	overflow: hidden;
+	transition: right 0.5s ease;
 }
 
-.animated-list li {
-	word-spacing: 1em;
+.result-list li {
 	list-style-type: none;
-	line-height: 3em;
+	line-height: 1.5em;
     animation: fadeIn 1.5s ease 0s forwards;
 }
 
 .result-list-item {
     display: flex;
     align-items: center;
-	justify-content: space-between; /* Space between items */
-    padding: 5px; /* Add padding for better readability */
+	justify-content: space-between;
+}
+
+.results-toggle {
+    position: relative;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 4;
+	transition: transform 0.3s ease;
 }
 
 /* Droppable files zone styles */

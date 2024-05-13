@@ -24,17 +24,35 @@
                 </div>
             </div>
             {% if results %}
-            <div class="results-container">
-                <h3>Image Processing Results:</h3>
-                    <ul class="animated-list">
+            <!-- <button id="toggle-button" onclick="toggleResults()">Toggle Results</button> -->
+            <div class="results-container" id="results-container">
+                <div class="results-toggle" onclick="toggleResults()">&#x25BA;</div>
+                <div class="results-content">
+                    <h3 class="text-center">Image Processing Results</h3>
+                    <ul class="result-list">
                         {% for label, confidence in results %}
                             <li class="result-list-item">{{ label }}: {{ confidence }}%</li>
                         {% endfor %}
                     </ul>
                 </div>
+            </div>
             {% endif %}
         </div>
         <script>
+            function toggleResults() {
+
+                var resultsContainer = document.getElementById('results-container');
+                var resultsToggle = document.querySelector('.results-toggle');
+                resultsContainer.classList.toggle('hidden');
+                if (resultsContainer.classList.contains('hidden')) {
+                    resultsContainer.style.right = '-20em';
+                    resultsToggle.innerHTML = '&#x25C4;';
+                } else {
+                    resultsContainer.style.right = '0';
+                    resultsToggle.innerHTML = '&#x25BA;';
+                }
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('#id_image_input').addEventListener('change', function() {
                     document.getElementById('uploadForm').submit();
