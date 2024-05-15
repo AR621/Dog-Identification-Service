@@ -3,14 +3,75 @@ body {
 	font-display: fallback;
 	background: url('cloud_bg.svg');
 	background-size: cover;
+	margin: 0%;
 	background-position: center;
-	line-height: 1.6;
  }
+
+#content {
+	position: absolute;
+	width: 100%;
+	height: 85%;
+	margin-top: 8%;
+	margin-bottom: 0px;
+}
+
+/* Navbar */
+
+header {
+	position: fixed;
+	background-color: #333;
+	color: #fff;
+	margin: 0%;
+	padding: 15px;
+	width: 100%;
+	min-height: 30px;
+	height: 6%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 621;
+}
+
+nav {
+	float: right;
+	margin: 2%;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+nav ul li {
+	display: inline;
+}
+
+nav ul li a {
+	color: #fff;
+	text-decoration: none;
+	padding: 10px 20px;
+	border: 2px solid transparent;
+	transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+	background-color: #555;
+	border-color: #fff;
+}
+
+nav ul li a.active {
+	border-color: #fff;
+}
+
+/* other */
 
 h1 {
 	font-size: 24px;
 	font-weight: bold;
 	margin-bottom: 0px;
+	margin: 8px;
 }
 
 h2 {
@@ -103,44 +164,13 @@ code {
 	text-align: center;
 }
 
-/* Navbar */
-
-header {
-	background-color: #333;
-	color: #fff;
-	padding: 10px;
+.classifier-container {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	justify-content: center;
+	height: 90%;
 }
 
-nav ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	text-align: center; /* Center the list items */
-}
-
-nav ul li {
-	display: inline;
-}
-
-nav ul li a {
-	color: #fff;
-	text-decoration: none;
-	padding: 10px 20px;
-	border: 2px solid transparent;
-	transition: all 0.3s ease;
-}
-
-nav ul li a:hover {
-	background-color: #555;
-	border-color: #fff;
-}
-
-nav ul li a.active {
-	border-color: #fff;
-}
 
 /* results container styles */
 
@@ -209,9 +239,8 @@ nav ul li a.active {
 .file-droppable {
 	position: relative; /* Set position relative to contain absolutely positioned elements */
 	overflow: hidden;
-    height: 90vh;
-	max-height: 90vh;
-	width: 100%;
+    height: 100%;
+	width: 95%;
 	border: rgba(72, 103, 255, 0.8) 3px dashed;
 }
 
@@ -274,11 +303,6 @@ nav ul li a.active {
 
 	.container {
         margin-top: 0;
-	}
-
-    .hero {
-        margin-top: 0;
-        margin-bottom: 24px;
 	}
 }
 @media (prefers-color-scheme: dark) {
