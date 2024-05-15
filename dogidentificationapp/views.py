@@ -8,6 +8,8 @@ import base64
 from PIL import Image
 from dogidentificationapp.models import Photo
 
+
+
 def homepage(request):
     service = os.environ.get('K_SERVICE', 'Unknown service')
     revision = os.environ.get('K_REVISION', 'Unknown revision')
@@ -18,8 +20,10 @@ def homepage(request):
         "Revision": revision,
     })
 
+
 def aboutpage(request):
     return render(request, 'aboutpage.html', context={})
+
 
 def classify_dogs(request):
     if request.method == 'POST':
