@@ -11,7 +11,7 @@
             <div class="file-droppable" id="fileDroppable">
                 <div class="upload-space">
                     {% if img_obj %}
-                        <img class="uploaded-image" src="{{ img_obj.image.url }}" alt="Uploaded Image";>
+                        <img class="uploaded-image" src="{% url 'serve_image' img_obj.id %}" alt="Uploaded Image";>
                     {% else %}
                         <h3 class="text-horizontal-center text-vertical-center">Drag an image here or use Browse to submit a photo</h3>
                     {% endif %}

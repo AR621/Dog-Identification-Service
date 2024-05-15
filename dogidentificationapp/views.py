@@ -1,10 +1,12 @@
 from django.shortcuts import render
+import io
 import os
 import requests
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import PhotoForm
 import base64
 from PIL import Image
+from dogidentificationapp.models import Photo
 from dogidentificationapp.dog_classifier import DogClassifier
 
 def homepage(request):
@@ -32,11 +34,10 @@ def classify_dogs(request):
             class_names_path = os.path.join(current_dir, 'models', 'class_names.txt')
 
             model = DogClassifier(model_path, class_names_path)
+            # Open the uploaded image and convert it to a PIL Image fro classification
+            image = Image.open(io.BytesIO(photo_instance.image))
 
-            # input_image = Image.open('/home/killshot/Pictures/ziumba/download20240102175124.png')
-            image = Image.open(os.path.join(current_dir, photo_instance.image.path))
-
-            # Convert the image to JPG format
+            # Convert the image to JPG format if it's not already
             if image.format != 'JPEG':
                 # If the image is not already in JPEG format, convert it
                 image = image.convert('RGB')
@@ -48,5 +49,10 @@ def classify_dogs(request):
             # Pass the saved photo instance and results to the template context to be rendered
             return render(request, 'dog_classifier.html', {'form': form, 'img_obj': photo_instance, 'results': results})
     else:
-        form = PhotoForm()  # Your form class for uploading image
+        form = PhotoForm()
     return render(request, 'dog_classifier.html', {'form': form})
+
+
+def serve_image(request, photo_id):
+    photo = Photo.objects.get(id=photo_id)
+    return HttpResponse(photo.image, content_type="image/jpeg")
