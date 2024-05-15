@@ -13,8 +13,8 @@ from dogidentificationapp.models import Photo
 def homepage(request):
     # service = os.environ.get('K_SERVICE', 'Unknown service')
     # revision = os.environ.get('K_REVISION', 'Unknown revision')
-    
-    return render(request, 'homepage.html')
+    page_title = "Dog Identification Service"
+    return render(request, 'homepage.html', {"page_title": page_title})
 
 
 def aboutpage(request):
@@ -23,6 +23,7 @@ def aboutpage(request):
 
 def classify_dogs(request):
     save_image_to_db = False
+    page_title = "Dog Classifier"
 
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
@@ -53,7 +54,8 @@ def classify_dogs(request):
             # lines = photo_instance.image.split('\n')
             image_b64 = base64.b64encode(photo_instance.image).decode('utf-8')
             # Pass the saved photo instance and results to the template context to be rendered
-            return render(request, 'dog_classifier.html', {'form': form, 'img_obj': image_b64, 'results': results})
+            return render(request, 'dog_classifier.html', {'page_title': page_title, 'form': form, 'img_obj': image_b64, 'results': results})
     else:
         form = PhotoForm()
-    return render(request, 'dog_classifier.html', {'form': form})
+
+    return render(request, 'dog_classifier.html', {'page_title': page_title, 'form': form})
