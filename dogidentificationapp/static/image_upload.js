@@ -1,5 +1,22 @@
+// for handling the image upload via browse button
 document.addEventListener('DOMContentLoaded', function() {
-    // Get references to the form and the file input
+    var imageInput = document.querySelector('#id_image_input');
+    if (imageInput) {
+        imageInput.addEventListener('change', function() {
+            var uploadForm = document.getElementById('uploadForm');
+            if (uploadForm) {
+                uploadForm.submit();
+            } else {
+                console.error("Form with id 'uploadForm' not found.");
+            }
+        });
+    } else {
+        console.error("Element with id 'id_image_input' not found.");
+    }
+});
+
+//  for handling the image upload via drag and drop
+document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('uploadForm');
     const fileInput = document.querySelector('input[type="file"]');
     
@@ -13,8 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (files.length > 0) {
             // Assign the dropped file to the file input
             fileInput.files = files;
-            
-            // Submit the form using AJAX
             submitForm();
         }
     }
@@ -28,15 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
             body: formData
         })
         .then(response => {
-            // Handle response as needed
             console.log(response);
-
-            // form.setAttribute('data-submitted', 'true');
             // Submit the form after fetch request completes
             form.submit(); 
         })
         .catch(error => {
-            // Handle error as needed
             console.error('Error:', error);
         });
     }
@@ -47,7 +58,4 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
     });
     fileDroppable.addEventListener('drop', handleFileDrop);
-    
-    // Automatically submit the form when a file is dropped
-    // fileInput.addEventListener('change', submitForm);
 });

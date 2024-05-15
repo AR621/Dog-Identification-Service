@@ -42,27 +42,9 @@
             </div>
             {% endif %}
         </div>
-        <script>
-            function toggleResults() {
-
-                var resultsContainer = document.getElementById('results-container');
-                var resultsToggle = document.querySelector('.results-toggle');
-                resultsContainer.classList.toggle('hidden');
-                if (resultsContainer.classList.contains('hidden')) {
-                    resultsContainer.style.right = '-20em';
-                    resultsToggle.innerHTML = '&#x25C4;';
-                } else {
-                    resultsContainer.style.right = '0';
-                    resultsToggle.innerHTML = '&#x25BA;';
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelector('#id_image_input').addEventListener('change', function() {
-                    document.getElementById('uploadForm').submit();
-                });
-            });
-            </script>
+    <!-- For handling image uploads -->
     <script src="{% static 'image_upload.js' %}"></script>
+    <!-- For hiding the results list on the right side of the screen -->
+    <script src="{% static 'results_list.js' %}"></script>
     </body>
 </html>
