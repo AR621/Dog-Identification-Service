@@ -1,21 +1,5 @@
-// for handling the image upload via browse button
-document.addEventListener('DOMContentLoaded', function() {
-    var imageInput = document.querySelector('#id_image_input');
-    if (imageInput) {
-        imageInput.addEventListener('change', function() {
-            var uploadForm = document.getElementById('uploadForm');
-            if (uploadForm) {
-                uploadForm.submit();
-            } else {
-                console.error("Form with id 'uploadForm' not found.");
-            }
-        });
-    } else {
-        console.error("Element with id 'id_image_input' not found.");
-    }
-});
-
 //  for handling the image upload via drag and drop
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('uploadForm');
     const fileInput = document.querySelector('input[type="file"]');
@@ -30,8 +14,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (files.length > 0) {
             // Assign the dropped file to the file input
             fileInput.files = files;
-            submitForm();
+            form.submit();
         }
+    }
+
+    // code for handling the image upload via browse button
+    var imageInput = document.querySelector('#id_image_input');
+    if (imageInput) {
+        imageInput.addEventListener('change', function() {
+            var uploadForm = document.getElementById('uploadForm');
+            if (uploadForm) {
+                uploadForm.submit();
+            } else {
+                console.error("Form with id 'uploadForm' not found.");
+            }
+        });
+    } else {
+        console.error("Element with id 'id_image_input' not found.");
     }
 
     // Function to submit form using AJAX
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             console.log(response);
-            // Submit the form after fetch request completes
+            // // Submit the form after fetch request completes
             form.submit(); 
         })
         .catch(error => {
