@@ -34,12 +34,15 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dogidentificationapp',
+    'django.contrib.sessions'
 ]
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'dogidentificationapp.urls'
