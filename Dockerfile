@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 # Copy the rest of the working directory contents into the container at /app
 COPY . /app/
 
-EXPOSE 8000
+EXPOSE 8080
 
 # Run app.py when the container launches
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
