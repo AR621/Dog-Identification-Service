@@ -19,8 +19,8 @@ EXPOSE 8080
 
 # Copy static files for production server
 RUN ["python", "manage.py", "collectstatic"]
-# Prepare db
-RUN ["sh", "-c", "python manage.py migrate"]
+
+RUN ["python", "manage.py", "migrate"]
 
 # Run app.py when the container launches
-CMD ["python manage.py runserver 0.0.0.0:8080"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
