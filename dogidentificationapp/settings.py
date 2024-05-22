@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = "/app/"
 
 
 # Quick-start development settings - unsuitable for production
@@ -90,6 +91,6 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = BASE_DIR + "dogidentificationapp/static/"
-print(STATIC_ROOT)
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+
 STATIC_URL = '/static/'

@@ -1,11 +1,15 @@
-from django.urls import path, include
+from django.urls import re_path, path, include
 from dogidentificationapp import views
+from django.views.static import serve
 from django.conf import settings
-from django.conf.urls.static import static
+
 
 urlpatterns = [
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+
     path('about/', views.aboutpage, name='about'),
     path('', views.homepage, name='home'),
     path('dog/', views.classify_dogs, name='classify-dogz'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
