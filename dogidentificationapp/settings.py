@@ -89,18 +89,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'myproject',
-#         'USER': 'myprojectuser',
-#         'PASSWORD': 'password',
-#         'HOST': 'db',
-#         'PORT': '5432',
-#     }
-# }
-
-
 
 STATIC_ROOT = BASE_DIR + "dogidentificationapp/static/"
 print(STATIC_ROOT)
