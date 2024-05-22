@@ -1,27 +1,14 @@
-asgiref==3.8.1
-certifi==2024.2.2
-charset-normalizer==3.3.2
 Django==5.0.6
-filelock==3.13.1
-fsspec==2024.2.0
-idna==3.7
 Jinja2==3.1.3
-MarkupSafe==2.1.5
 mpmath==1.3.0
 networkx==3.2.1
 numpy==1.26.3
 pillow==10.2.0
-pip==24.0
-requests==2.31.0
-setuptools==65.5.0
-sqlparse==0.5.0
 sympy==1.12
-# to find cpu version of torch which is more lightweight
+# typing_extensions==4.9.0
+# urllib3==2.2.1
+requests==2.31.0
+# # to find cpu version of torch which is more lightweight
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==2.3.0+cpu
 torchvision==0.18.0+cpu
-
-typing_extensions==4.9.0
-urllib3==2.2.1
-requests==2.31.0
-debugpy # Required for debugging.
