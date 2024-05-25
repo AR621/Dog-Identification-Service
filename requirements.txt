@@ -5,8 +5,6 @@ networkx==3.2.1
 numpy==1.26.3
 pillow==10.2.0
 sympy==1.12
-# typing_extensions==4.9.0
-# urllib3==2.2.1
 requests==2.31.0
 # # to find cpu version of torch which is more lightweight
 --find-links https://download.pytorch.org/whl/torch_stable.html
