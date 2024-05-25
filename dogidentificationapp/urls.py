@@ -1,4 +1,5 @@
 from django.urls import re_path, path, include
+from django.views.generic import RedirectView
 from dogidentificationapp import views
 from django.views.static import serve
 from django.conf import settings
@@ -11,5 +12,7 @@ urlpatterns = [
     path('about/', views.aboutpage, name='about'),
     path('', views.homepage, name='home'),
     path('dog/', views.classify_dogs, name='classify-dogz'),
+
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
 ]
 
