@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 import os
 from dogidentificationapp.dog_classifier import DogClassifier
+from django.conf import settings
 
 
 class ApplicationConfig(AppConfig):
