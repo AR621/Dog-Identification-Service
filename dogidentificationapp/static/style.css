@@ -65,7 +65,20 @@ nav ul li a.active {
 	border-color: #fff;
 }
 
-/* other */
+.logo {
+	height: 100%;
+	width: auto;
+	/* margin-right: 10px; */
+}
+
+.title {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	float: left;
+}
+
+/* Universal styles */
 
 h1 {
 	font-size: 24px;
@@ -76,7 +89,7 @@ h1 {
 
 h2 {
 	font-size: 18px;
-	font-weight: normal;
+	font-weight: bold;
 	margin-top: 4px;
 }
 
@@ -90,41 +103,13 @@ em {
 	font-style: normal;
 }
 
-.next {
-    font-size: 15px;
-	margin-top: 8px;
-	margin-bottom: 8px;
-}
-
 .container {
 	max-width: 700px;
 	margin-left: auto;
 	margin-right: auto;
 } 
 
-.hero {
-	margin-top: 172px;
-}
-
-.hero .logo {
-	width: 140px;
-	float: left;
-	margin-right: 32px;
-}
-
-.hero .message {
-	font-size: 15px;
-	text-align: center;
-	margin-bottom: 24px;
-}
-
-.details {
-	clear: both;
-	height: 400px;
-	line-height: 1.8;
-}
-
-.callout {
+.infobox {
 	font-size: 14px;
 	color: #1967D2;
 	font-weight: 600;
@@ -133,31 +118,6 @@ em {
 	background-position: 16px 16px;
 	background-repeat: no-repeat;
 	line-height: 1.6;
-}
-
-code {
-	font-family: 'Roboto Mono', Courier, monospace;
-	color: #A30038;
-	background-color: #F8F8F8;
-	border: 1px solid #DDD;
-	border-radius: 2px;
-	padding: 0 6px;
-	font-weight: 500;
-}
-
-.cta {
-	padding-bottom: 52px;
-}
-
-.cta a {
-	color: white;
-	text-decoration: none;
-	background-color: rgb(14, 101, 241);
-	padding: 8px 12px;
-	margin: 8px;
-	min-height: 36px;
-	border-radius: 2px;
-	font-weight: 600;
 }
 
 .text-center {
