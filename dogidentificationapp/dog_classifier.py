@@ -17,7 +17,7 @@ class DogClassifier(torch.nn.Module):
             # laod saved trained model
             self.model = torch.load(model_path)
 
-            print(f"Model '{self.model}' loaded sucessfully")
+            print(f"Model '{self.model.__class__.__name__}' loaded sucessfully")
         except Exception as e:
             raise Exception(e)
 

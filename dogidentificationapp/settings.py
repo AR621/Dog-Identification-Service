@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # DOG_CLASSIFIER_MODEL_NAME = "dog_classifier_model_resnet152_v3.pth"
 DOG_CLASSIFIER_MODEL_NAME = "model.pth"
@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+print(os.path.join(BASE_DIR, 'db.sqlite3'),)
 STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 
 STATIC_URL = '/static/'

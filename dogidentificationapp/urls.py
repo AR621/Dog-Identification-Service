@@ -13,6 +13,8 @@ urlpatterns = [
     path('', views.homepage, name='home'),
     path('dog/', views.classify_dogs, name='classify-dogz'),
 
+    path('submit_feedback/', views.submit_feedback, name='submit_feedback'),
+
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
 ]
 

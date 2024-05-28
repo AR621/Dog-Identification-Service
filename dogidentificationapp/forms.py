@@ -11,6 +11,7 @@ class PhotoForm(forms.ModelForm):
         super(PhotoForm, self).__init__(*args, **kwargs)
         self.fields['image'] = forms.ImageField()
         self.fields['save_to_db'] = forms.BooleanField(required=False, label='Save results to database')
+        self.fields['save_to_db'].widget.attrs.update({'id': 'id_save_to_db'})
         self.fields['image'].label = (
             "Add an image of a dog for the dog breed classifier by clicking browse "
             "or dragging the image into the field"

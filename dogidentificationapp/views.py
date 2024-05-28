@@ -1,9 +1,12 @@
 from django.shortcuts import render
 import io
 import requests
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.apps import apps
 from .forms import PhotoForm
+import json
 import base64
 from PIL import Image
 from dogidentificationapp.models import DogPhoto
@@ -11,8 +14,6 @@ from dogidentificationapp.models import DogPhoto
 
 
 def homepage(request):
-    # service = os.environ.get('K_SERVICE', 'Unknown service')
-    # revision = os.environ.get('K_REVISION', 'Unknown revision')
     page_title = "Dog Identification Service"
     return render(request, 'homepage.html', {"page_title": page_title})
 
@@ -34,7 +35,7 @@ def classify_dogs(request):
             try:
                 image = Image.open(io.BytesIO(photo_instance.image))
             except IOError:
-                return HttpResponse("Invalid image file.")
+                return JsonResponse({'status': 'error', 'message': 'Invalid image format.'})
             
             # Convert the image to JPG format if it's not already
             if image.format != 'JPEG':
@@ -50,6 +51,8 @@ def classify_dogs(request):
             if form.cleaned_data.get('save_to_db'):
                 photo_instance.predicted_class_name = results[0][0]
                 photo_instance.save() # real_class_name=form.cleaned_data.get('real_class_name'))
+                request.session['photo_id'] = photo_instance.id  # Store the photo_id in session for updating from feedback form
+                print(f"New photo saved to database: {photo_instance.id}")
 
             # lines = photo_instance.image.split('\n')
             image_b64 = base64.b64encode(photo_instance.image).decode('utf-8')
@@ -60,7 +63,6 @@ def classify_dogs(request):
 
             # Pass the saved photo instance and results to the template context to be rendered
             return redirect('classify-dogz')
-            # return render(request, 'dog_classifier.html', {'page_title': page_title, 'form': form, 'img_obj': image_b64, 'results': results})
     else:
         form = PhotoForm()
         results = request.session.get('results', None)
@@ -72,3 +74,44 @@ def classify_dogs(request):
         'results': results,
         'img_obj': image_b64
     })
+
+@csrf_exempt
+def submit_feedback(request):
+    """
+    Handles feedback submission from the feedback form.
+    If correct feedback is received, the real class name is updated in the database as predicted class.
+    If incorrect feedback is received, the real class name is updated in the database as the correct breed submitted int form
+    """
+    if request.method == 'POST':
+        try:
+            body = request.body.decode('utf-8')
+            data = json.loads(body)
+            print(f"Data received in feedback form: {data}")
+
+            is_correct = data.get('is_correct')
+            correct_breed = data.get('correct_breed')
+            photo_id = request.session.get('photo_id')  # Retrieve the photo_id from the session            
+
+            if not photo_id:
+                return JsonResponse({'status': 'error', 'message': 'Photo ID is required.'})
+            
+            # Fetch the DogPhoto instance
+            try:
+                photo_instance = DogPhoto.objects.get(id=photo_id)
+            except DogPhoto.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Photo not found.'})
+
+            # Handle the feedback
+            if is_correct:
+                print('Feedback received: Correct, predicted saved as real')
+                photo_instance.real_class_name = photo_instance.predicted_class_name
+                photo_instance.save()
+            else:
+                print(f'Feedback received: Incorrect prediction. Correct breed saved: {correct_breed}')
+                photo_instance.real_class_name = correct_breed
+                photo_instance.save()
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})

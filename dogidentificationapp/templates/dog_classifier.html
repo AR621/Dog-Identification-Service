@@ -41,9 +41,84 @@
                         {% endfor %}
                     </ul>
                 </div>
+                <div class="chatbox" id="chatbox">
+                    <div class="chatbox-header" onclick="toggleChatbox()">Feedback</div>
+                    <div class="chatbox-body">
+                        <p>Was the classification correct?</p>
+                        <button onclick="submitFeedback(true)">Yes</button>
+                        <button onclick="submitFeedback(false)">No</button>
+                        <div id="correct-breed-form" style="display:none;">
+                            <p>Please enter the correct breed:</p>
+                            <input type="text" id="correct-breed-input">
+                            <button onclick="submitCorrectBreed()">Submit</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             {% endif %}
         </div>
+        <script>
+ function toggleChatbox() {
+    var chatboxBody = document.querySelector('.chatbox-body');
+    chatboxBody.style.display = chatboxBody.style.display === 'none' ? 'block' : 'none';
+}
+
+function submitFeedback(isCorrect) {
+    if (isCorrect) {
+        sendFeedback(isCorrect, null);
+    } else {
+        var correctBreedForm = document.getElementById('correct-breed-form');
+        correctBreedForm.style.display = 'block';
+    }
+}
+
+function submitCorrectBreed() {
+    var correctBreedInput = document.getElementById('correct-breed-input');
+    var correctBreed = correctBreedInput.value;
+    if (correctBreed) {
+        sendFeedback(false, correctBreed);
+    } else {
+        alert('Please enter the correct breed.');
+    }
+}
+
+function sendFeedback(isCorrect, correctBreed) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/submit_feedback/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+
+    var data = JSON.stringify({ 'is_correct': isCorrect, 'correct_breed': correctBreed });
+    xhr.send(data);
+    
+    log.debug(data);
+
+    // xhr.onload = function() {
+    //     if (xhr.status === 200) {
+    //         alert('Thank you for your feedback!');
+    //     } else {
+    //         alert('An error occurred while submitting your feedback.');
+    //     }
+    // };
+}
+
+// Function to get CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+        </script>
     <!-- For handling image uploads -->
     <script src="{% static 'image_upload.js' %}"></script>
     <!-- For hiding the results list on the right side of the screen -->
