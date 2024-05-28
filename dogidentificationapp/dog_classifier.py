@@ -9,6 +9,7 @@ class DogClassifier(torch.nn.Module):
     def __init__(self, model_path, class_names_path):
         super(DogClassifier, self).__init__()
         self.class_names = None
+        self.device = 'cpu'
         self.model = None
         try:
             # load class names
@@ -16,6 +17,7 @@ class DogClassifier(torch.nn.Module):
                 self.class_names = [line.strip() for line in f.readlines()]
             # laod saved trained model
             self.model = torch.load(model_path)
+            self.model.to(self.device)
 
             print(f"Model '{self.model.__class__.__name__}' loaded sucessfully")
         except Exception as e:

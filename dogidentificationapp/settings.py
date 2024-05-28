@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # DOG_CLASSIFIER_MODEL_NAME = "dog_classifier_model_resnet152_v3.pth"
-DOG_CLASSIFIER_MODEL_NAME = "model.pth"
+DOG_CLASSIFIER_MODEL_NAME = "model_resnet152_v5.pth"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'fxfwao!b&53)8l$t3nc(+)9^63t%b09f_dn@jx6e_(ghhkbgh5'
@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-print(os.path.join(BASE_DIR, 'db.sqlite3'),)
+
 STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 
 STATIC_URL = '/static/'

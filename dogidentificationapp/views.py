@@ -30,6 +30,9 @@ def classify_dogs(request):
         if form.is_valid():
             # Get the uplaoded photo
             photo_instance = form.save(commit=False)
+            
+            # reset feedback submitted since new photos is being uplaoded
+            request.session['feedback_submitted'] = False
 
             # Open the uploaded image and convert it to a PIL Image fro classification
             try:
@@ -52,7 +55,7 @@ def classify_dogs(request):
                 photo_instance.predicted_class_name = results[0][0]
                 photo_instance.save() # real_class_name=form.cleaned_data.get('real_class_name'))
                 request.session['photo_id'] = photo_instance.id  # Store the photo_id in session for updating from feedback form
-                print(f"New photo saved to database: {photo_instance.id}")
+                print(f"New photo saved to database: {request.session['photo_id']}")
 
             # lines = photo_instance.image.split('\n')
             image_b64 = base64.b64encode(photo_instance.image).decode('utf-8')
@@ -67,11 +70,15 @@ def classify_dogs(request):
         form = PhotoForm()
         results = request.session.get('results', None)
         image_b64 = request.session.get('image_b64', None)
+        photo_id = request.session.get('photo_id', None)
+        feedback_submitted = request.session.get('feedback_submitted', False)
+
 
     return render(request, 'dog_classifier.html', {
         'page_title': page_title,
         'form': form,
         'results': results,
+        'feedback_submitted': feedback_submitted,
         'img_obj': image_b64
     })
 
@@ -86,15 +93,23 @@ def submit_feedback(request):
         try:
             body = request.body.decode('utf-8')
             data = json.loads(body)
-            print(f"Data received in feedback form: {data}")
 
             is_correct = data.get('is_correct')
             correct_breed = data.get('correct_breed')
-            photo_id = request.session.get('photo_id')  # Retrieve the photo_id from the session            
-
-            if not photo_id:
-                return JsonResponse({'status': 'error', 'message': 'Photo ID is required.'})
             
+            # Retrieve the photo_id from the session
+            photo_id = request.session.get('photo_id')
+
+            # If photo_id is None, save the photo to the database (since being in this part of code means that user agreed to save the data)
+            if photo_id is None:
+                photo_instance = PhotoForm().save(commit=False, rawform=True)
+                photo_instance.image = base64.b64decode(request.session.get('image_b64').encode('utf-8'))
+                photo_instance.predicted_class_name = request.session.get('results')[0][0]
+                photo_instance.save()
+                photo_id = photo_instance.id
+                print(f"New photo saved to database: photo_id {photo_id}")
+
+
             # Fetch the DogPhoto instance
             try:
                 photo_instance = DogPhoto.objects.get(id=photo_id)
@@ -111,7 +126,17 @@ def submit_feedback(request):
                 photo_instance.real_class_name = correct_breed
                 photo_instance.save()
 
+            # Remove the photo_id from the session after updating
+            request.session['photo_id'] = None
+            request.session['feedback_submitted'] = True
+
             return JsonResponse({'status': 'success'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+@csrf_exempt
+def refuse_saving_of_data(request):
+    request.session['feedback_submitted'] = True
+    return redirect('classify-dogz')

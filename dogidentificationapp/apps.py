@@ -10,7 +10,7 @@ class ApplicationConfig(AppConfig):
     def ready(self):
         # define paths for model import
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        model_path = os.path.join(current_dir, 'models', 'model.pth')
+        model_path = os.path.join(current_dir, 'models', settings.DOG_CLASSIFIER_MODEL_NAME)
         class_names_path = os.path.join(current_dir, 'models', 'class_names.txt')
 
         # load the model        

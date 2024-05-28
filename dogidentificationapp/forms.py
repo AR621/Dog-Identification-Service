@@ -19,11 +19,13 @@ class PhotoForm(forms.ModelForm):
         self.fields['image'].widget.attrs.update({'id': 'id_image_input'})  # Update widget attributes
 
 
-    def save(self, commit=True, predicted_class_name = None, real_class_name = None):
+    def save(self, commit=True, predicted_class_name = None, real_class_name = None, rawform = False):
         instance = super(PhotoForm, self).save(commit=False)
-        uploaded_file = self.cleaned_data['image']
-        instance.image = uploaded_file.read()
-        print(f"Image uploaded {instance.id}")
+        if not rawform:
+            uploaded_file = self.cleaned_data['image']
+            instance.image = uploaded_file.read()
+        else:
+            instance.image = None
         if predicted_class_name:
             instance.predicted_class_name = predicted_class_name
         if real_class_name:
