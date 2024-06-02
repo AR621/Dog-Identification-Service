@@ -172,11 +172,14 @@ em {
 .photos-container {
 	display: flex;
 	align-items: center;
+	align-content: center;
+	justify-content: center;
 }
 
 .photos-container-photo {
 	height: 200px;
 	border: rgba(110, 100, 100, 0.3) 3px dashed;
+	margin: 4px;
 }
 
 
@@ -220,6 +223,7 @@ em {
 .result-list-item {
     display: flex;
     align-items: center;
+	width: 100%;
 	justify-content: space-between;
 }
 
