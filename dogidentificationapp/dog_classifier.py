@@ -16,7 +16,7 @@ class DogClassifier(torch.nn.Module):
             with open(class_names_path) as f:
                 self.class_names = [line.strip() for line in f.readlines()]
             # laod saved trained model
-            self.model = torch.load(model_path)
+            self.model = torch.load(model_path, map_location=torch.device('cpu'))
             self.model.to(self.device)
 
             print(f"Model '{self.model.__class__.__name__}' loaded sucessfully")

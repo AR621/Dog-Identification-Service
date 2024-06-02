@@ -6,6 +6,7 @@ numpy==1.26.3
 pillow==10.2.0
 sympy==1.12
 requests==2.31.0
+whitenoise==6.6.0
 # # to find cpu version of torch which is more lightweight
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==2.3.0+cpu

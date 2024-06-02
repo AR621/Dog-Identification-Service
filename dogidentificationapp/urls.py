@@ -1,4 +1,5 @@
 from django.urls import re_path, path, include
+from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from dogidentificationapp import views
 from django.views.static import serve
@@ -21,4 +22,3 @@ urlpatterns = [
     path('refuse_saving_of_data/', views.refuse_saving_of_data, name='refuse_saving_of_data'),
     path('upload_example/', views.upload_example, name='upload_example')
 ]
-

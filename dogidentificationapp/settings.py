@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+print(BASE_DIR)
+
 # DOG_CLASSIFIER_MODEL_NAME = "dog_classifier_model_resnet152_v3.pth"
 DOG_CLASSIFIER_MODEL_NAME = "model_resnet152_v5.pth"
 
@@ -22,11 +24,18 @@ DOG_CLASSIFIER_MODEL_NAME = "model_resnet152_v5.pth"
 SECRET_KEY = 'fxfwao!b&53)8l$t3nc(+)9^63t%b09f_dn@jx6e_(ghhkbgh5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Change this to your production URL for deployment
 ALLOWED_HOSTS = ['*']
 
+# Static and media paths
+
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Application definition
 
@@ -40,9 +49,12 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'dogidentificationapp.urls'
 
@@ -88,7 +100,3 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
-
-STATIC_URL = '/static/'
