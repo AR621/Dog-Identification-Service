@@ -4,6 +4,7 @@ body {
 	background: url('cloud_bg.svg');
 	background-size: cover;
 	margin: 0%;
+	overflow-x: hidden;
 	background-position: center;
  }
 
