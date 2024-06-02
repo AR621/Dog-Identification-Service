@@ -15,6 +15,13 @@ body {
 	margin-bottom: 0px;
 }
 
+.text-content {
+	max-width: 70%;
+	min-width: none;
+	margin: auto;
+	margin-bottom: 5%;
+} 
+
 /* Navbar */
 
 header {
@@ -102,12 +109,6 @@ em {
 	font-style: normal;
 }
 
-.container {
-	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-} 
-
 .infobox {
 	font-size: 14px;
 	color: #1967D2;
@@ -121,6 +122,31 @@ em {
 
 .text-center {
 	text-align: center;
+}
+
+/* itembox */
+
+.item-box {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.item-box-el {
+	flex: 1 1 1;
+	font-size: smaller;
+	background-color: rgba(60, 20, 134, 0.6);
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+}
+
+
+.training_plots {
+	height: 350px;
+	width: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .classifier-container {

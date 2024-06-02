@@ -15,7 +15,11 @@ from dogidentificationapp.models import DogPhoto
 
 def homepage(request):
     page_title = "Dog Identification Service"
-    return render(request, 'homepage.html', {"page_title": page_title})
+    try:
+        dog_breeds = apps.get_app_config('dogidentificationapp').dog_classes
+    except:
+        dog_breeds = None
+    return render(request, 'homepage.html', {"page_title": page_title, "dog_breeds": dog_breeds})
 
 
 def aboutpage(request):
@@ -46,7 +50,7 @@ def classify_dogs(request):
                 image = image.convert('RGB')
 
             # Access the loaded model from the app config
-            model = apps.get_app_config('dogidentificationapp').model
+            model = apps.get_app_config('dogidentificationapp').dog_classifier
             results = model.classify_dog(image)
             # change results into percentage and round 2 2 decimal places and change format of title to not include _
             results = [(label.replace('_', ' ').title(), round(confidence * 100, 2)) for label, confidence in results]
