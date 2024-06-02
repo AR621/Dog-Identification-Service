@@ -24,7 +24,8 @@ def homepage(request):
 
 
 def aboutpage(request):
-    return render(request, 'aboutpage.html', context={})
+    page_title = "How to use the website?"
+    return render(request, 'aboutpage.html', context={"page_title": page_title})
 
 
 def classify_dogs(request):

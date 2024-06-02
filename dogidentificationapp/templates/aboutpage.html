@@ -3,19 +3,36 @@
 {% load static %}
 {% block content %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>About Dog Identification Service</title>
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="preload" as="font">
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
     </head>
-
+<html>
     <body>
-        <h1>Work in progress</h1>
-
-        <p>
-            <a href="{% url 'home' %}">Home</a>
-        </p>
-        <p>
-        </p>
+        <div class="text-content">
+            <h1>1. Go to dog classifier webpage.</h1>
+            <p>
+            First of all thank you for trying out the website! To use the website first simply go to dog classifier webpage:
+            </p>
+            <img class="text-content-img" src="{% static 'how-to-1.png' %}" alt="how-to-1: Choose dog classifier">
+            <h1>2. Upload image of a dog.</h1>
+            <p>
+            Once there, upload image of a dog by using the button or simply dragging the photo into the field.
+            </p>
+            <img class="text-content-img" src="{% static 'how-to-2.png' %}" alt="how-to-2: Upload image.">
+            <h1>3. Read the results</h1>
+            <p>
+            Once you do this the photo should be displayed and you will be able to see the results on the right side of the webpage.
+            </p>
+            <img class="text-content-img" src="{% static 'how-to-3.png' %}" alt="how-to-3: Read the results.">
+            <h1>4. Send Feedback.</h1>
+            <p>
+            Consider submitting photo you uploaded for potential improvment of the model via the feedback form.
+            </p>
+            <img class="text-content-img" src="{% static 'how-to-4.png' %}" alt="how-to-4: Consider submitting photo for improvment of the model.">
+        </div>
     </body>
 </html>
 {% endblock %}
