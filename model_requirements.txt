@@ -1,0 +1,10 @@
+matplotlib==3.9.0
+scikit-learn==1.5.0
+jupyter==1.0.0
+torchviz==0.0.2
+
+# Here pytorch is for ROCm since I own AMD gpu
+--find-links https://download.pytorch.org/whl/torch_stable.html
+torch==2.3.0+rocm6.0
+torchvision==0.18.0+rocm6.0
+
