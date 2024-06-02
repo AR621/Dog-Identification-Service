@@ -150,11 +150,33 @@ em {
 	margin-right: auto;
 }
 
+.classifier {
+	min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
 .classifier-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 90%;
+}
+
+.example-container {
+	padding: 2%;
+	height: auto;
+}
+
+.photos-container {
+	display: flex;
+	align-items: center;
+}
+
+.photos-container-photo {
+	height: 200px;
+	border: rgba(110, 100, 100, 0.3) 3px dashed;
 }
 
 

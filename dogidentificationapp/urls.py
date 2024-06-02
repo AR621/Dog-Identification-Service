@@ -19,5 +19,6 @@ urlpatterns = [
     # requests from js
     path('submit_feedback/', views.submit_feedback, name='submit_feedback'),
     path('refuse_saving_of_data/', views.refuse_saving_of_data, name='refuse_saving_of_data'),
+    path('upload_example/', views.upload_example, name='upload_example')
 ]
 

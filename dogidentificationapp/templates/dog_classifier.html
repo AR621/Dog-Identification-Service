@@ -9,6 +9,7 @@
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
 </head>
     <body>
+        <!-- <div class="classifier"> -->
         <div class="classifier-container">
             <div class="file-droppable" id="fileDroppable">
                 <div class="upload-space">
@@ -25,8 +26,9 @@
                     </form>
                 </div>
             </div>
+            <!-- Conditional code for result list -->
             {% if results %}
-            <div class="results-container" id="results-container">
+                <div class="results-container" id="results-container">
                 <div class="results-toggle" onclick="toggleResults()">&#x25BA;</div>
                 <div class="results-content">
                     <h3 class="text-center">Dog Classification Results</h3>
@@ -59,8 +61,21 @@
                 {% endif %}
             {% endif %}
         </div>
+    </div>
+
+    <div class="example-container">
+        <h1>No dog photos on hand? Try out some examples!</h1>
+        <div class="photos-container">
+            <img class="photos-container-photo" src="{% static 'dummy_images/dummy_dog1.jpg' %}" onclick="loadExamplePhoto(this)" alt="Example image 1 - small brown dog">
+            <img class="photos-container-photo" src="{% static 'dummy_images/dummy_dog2.jpg' %}" onclick="loadExamplePhoto(this)" alt="Example image 2 - Dog laying in a tunnel">
+            <img class="photos-container-photo" src="{% static 'dummy_images/dummy_dog3.jpg' %}" onclick="loadExamplePhoto(this)" alt="Example image 3 - Chihuahua with a stick">
+        </div>
+    </div>
     <!-- For handling feedback form -->
-    <script> var photoId = "{{ request.session.photo_id }}" </script>
+    <script> 
+        var photoId = "{{ request.session.photo_id }}" 
+        var csrfToken = '{{ csrf_token }}';
+    </script>
     <script src="{% static 'feedback.js' %}"></script>
     <!-- For handling image uploads -->
     <script src="{% static 'image_upload.js' %}"></script>

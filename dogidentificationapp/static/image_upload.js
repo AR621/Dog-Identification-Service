@@ -1,5 +1,4 @@
 //  for handling the image upload via drag and drop
-
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('uploadForm');
     const fileInput = document.querySelector('input[type="file"]');
@@ -58,3 +57,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     fileDroppable.addEventListener('drop', handleFileDrop);
 });
+
+
+// For handling 'upload' from examples
+function loadExamplePhoto(photo) {
+    // Create a FormData object
+    var formData = new FormData();
+    formData.append('example_image_url', photo.src);
+
+    // Send a POST request with the example image URL
+    fetch('/upload_example/', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // Reload the page on success
+            window.location.reload();
+        } else {
+            console.error('Error:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 import io
 import requests
-from django.shortcuts import render, redirect, HttpResponse 
-from django.http import JsonResponse
+from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.apps import apps
 from .forms import PhotoForm
@@ -10,6 +10,7 @@ import json
 import base64
 from PIL import Image
 from dogidentificationapp.models import DogPhoto
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 
@@ -28,15 +29,25 @@ def aboutpage(request):
 
 def classify_dogs(request):
     page_title = "Dog Classifier"
+    feedback_submitted = False
+    results = None
+    image_b64 = None
+    
 
     if request.method == 'POST':
+        print((request.POST, request.FILES))
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             # Get the uplaoded photo
             photo_instance = form.save(commit=False)
-            
-            # reset feedback submitted since new photos is being uplaoded
-            request.session['feedback_submitted'] = False
+
+            print(request.POST, request.FILES)
+           
+            # reset feedback submitted since new photos is being uplaoded unless its example photo
+            if 'example_upload' in request.FILES:
+                request.session['feedback_submitted'] = True
+            else:    
+                request.session['feedback_submitted'] = False
 
             # Open the uploaded image and convert it to a PIL Image fro classification
             try:
@@ -144,3 +155,37 @@ def submit_feedback(request):
 def refuse_saving_of_data(request):
     request.session['feedback_submitted'] = True
     return redirect('classify-dogz')
+
+
+@csrf_exempt
+def upload_example(request):
+    if request.method == 'POST':
+        # Get the example image URL from the POST data
+        example_image_url = request.POST.get('example_image_url')
+        # get the image
+        response = requests.get(example_image_url)
+        # Create a PhotoForm instance and populate it with the example image URL
+        if response.status_code == 200:
+            image_data = response.content
+            uploaded_file = SimpleUploadedFile('example.jpg', image_data)
+
+            # Create a new POST request with the image data to mimic user input
+            new_request = HttpRequest()
+            new_request.method = 'POST'
+            new_request.FILES['image'] = uploaded_file
+            new_request.POST = request.POST
+            new_request.session = request.session
+            new_request.FILES['example_upload'] = 'true'
+
+            # Call the classify_dogs function with the new request
+            response = classify_dogs(new_request)
+
+            # Handle the response if needed
+            if response.status_code == 302:  # Redirect response
+                return JsonResponse({'status': 'success'})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Classification failed'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Failed to fetch image data'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Unsupported method'})
