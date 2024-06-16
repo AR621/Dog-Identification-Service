@@ -15,8 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-print(BASE_DIR)
-
 # DOG_CLASSIFIER_MODEL_NAME = "dog_classifier_model_resnet152_v3.pth"
 DOG_CLASSIFIER_MODEL_NAME = "model_resnet152_v5.pth"
 

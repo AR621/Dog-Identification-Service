@@ -36,13 +36,11 @@ def classify_dogs(request):
     
 
     if request.method == 'POST':
-        print((request.POST, request.FILES))
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             # Get the uplaoded photo
             photo_instance = form.save(commit=False)
 
-            print(request.POST, request.FILES)
            
             # reset feedback submitted since new photos is being uplaoded unless its example photo
             if 'example_upload' in request.FILES:
