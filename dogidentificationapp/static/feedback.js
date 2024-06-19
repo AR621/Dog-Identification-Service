@@ -54,29 +54,29 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-    // JavaScript function to display confirmation popup
-    function askForConfirmation() {
-        if (confirm("Would you like for your data to be saved for potential improvment of the model?")) {
-            alert("Data saved, thank you!")
-            return true
-        } else {
-            // Send a request to the server to update the session variable
-            var xml_http_req = new XMLHttpRequest();
-            xml_http_req.open('POST', '/refuse_saving_of_data/', true);  // Specify the URL to update the session variable
-            xml_http_req.setRequestHeader('Content-Type', 'application/json');
-            xml_http_req.onreadystatechange = function () {
-                if (xml_http_req.readyState === XMLHttpRequest.DONE) {
-                    if (xml_http_req.status === 200) {
-                        console.log("feedback_submitted session variable updated successfully");
-                    } else {
-                        // Error handling
-                        console.error("Error updating session variable");
-                    }
+// JavaScript function to display confirmation popup
+function askForConfirmation() {
+    if (confirm("Would you like for your data to be saved for potential improvment of the model?")) {
+        alert("Data saved, thank you!")
+        return true
+    } else {
+        // Send a request to the server to update the session variable
+        var xml_http_req = new XMLHttpRequest();
+        xml_http_req.open('POST', '/refuse_saving_of_data/', true);  // Specify the URL to update the session variable
+        xml_http_req.setRequestHeader('Content-Type', 'application/json');
+        xml_http_req.onreadystatechange = function () {
+            if (xml_http_req.readyState === XMLHttpRequest.DONE) {
+                if (xml_http_req.status === 200) {
+                    console.log("feedback_submitted session variable updated successfully");
+                } else {
+                    // Error handling
+                    console.error("Error updating session variable");
                 }
-            };
-            // Send the request with the data you want to update the session variable with
-            xml_http_req.send(JSON.stringify({key: 'feedback_submitted', value: true}));
+            }
+        };
+        // Send the request with the data you want to update the session variable with
+        xml_http_req.send(JSON.stringify({key: 'feedback_submitted', value: true}));
 
-            return false;
-        }
+        return false;
     }
+}

@@ -121,3 +121,21 @@ When initializing the module `model_path` and `class_names_path` need to be subm
 ### `classify_dog`
 
 The method takes as the argument the preprocessed photo, it then calls on the model loaded when initializing the class to classify the submitted image. It returns sorted results with labels.
+
+## `result_list.js` 
+
+### `toggleResults`
+
+The function handles hiding the results list on the right side of the screen. When the button is clicked the list is toggled between hidden and shown which slides it off/on the screen.
+
+## `image_upload.js`
+
+The file contains JavaScript event listeners for handling the upload photo functionality both for normal upload and 'drag and drop'
+
+### `loadExamplePhoto`
+
+The function is used to serve one of three example photos from the page to the user. It then calls `upload_example` from `views.py` to serve the example photos.
+
+## `feedback.js`
+
+The file contains functions concerned with the user feedback functionality. It contains the `saveFeedback` function which is used to save user feedback.
